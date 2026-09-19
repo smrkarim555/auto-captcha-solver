@@ -5,27 +5,32 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
-  width: 360px;
-  min-height: 480px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+  background-color: #080c14;
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(59, 130, 246, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(139, 92, 246, 0.16) 0%, transparent 45%);
+  color: #f1f5f9;
+  width: 370px;
+  min-height: 520px;
   overflow-x: hidden;
+  padding: 0;
 }
 
 .container {
-  padding: 16px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
+/* Glassmorphic Header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #1e293b;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-title {
@@ -35,80 +40,96 @@ body {
 }
 
 .logo-icon {
-  font-size: 24px;
-  background: #1e293b;
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid #334155;
+  font-size: 22px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h2 {
   font-size: 15px;
   font-weight: 700;
-  color: #f1f5f9;
+  letter-spacing: -0.2px;
+  background: linear-gradient(to right, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
   font-size: 11px;
   color: #94a3b8;
+  font-weight: 500;
 }
 
+/* Status Badges */
 .badge-status {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
   border-radius: 9999px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
 }
 
 .badge-status.connected {
-  background-color: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.15);
   color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
 }
 
 .badge-status.disconnected {
-  background-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.15);
   color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
 }
 
+/* Glassmorphism Card System */
 .card {
-  background-color: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
   padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Premium Highlight Glass Card */
 .highlight-card {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(30, 41, 59, 0.95)) !important;
-  border: 1px solid rgba(59, 130, 246, 0.5) !important;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.06)) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15) !important;
 }
 
-.btn-secondary {
-  background-color: #334155 !important;
-  color: #f1f5f9 !important;
-  border: 1px solid #475569 !important;
-}
-
-.btn-secondary:hover {
-  background-color: #475569 !important;
-}
-
-#input-allowed-sites {
-  font-size: 11px !important;
-  padding: 6px 10px !important;
+#subscription-card {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(15, 23, 42, 0.6)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
 }
 
 .section-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .label-title {
@@ -117,20 +138,23 @@ h2 {
   align-items: center;
   font-size: 12px;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #e2e8f0;
 }
 
 .free-link {
   color: #38bdf8;
   font-size: 11px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
 .free-link:hover {
+  color: #7dd3fc;
   text-decoration: underline;
 }
 
+/* Inputs with Frosted Depth */
 .input-group {
   display: flex;
   position: relative;
@@ -138,130 +162,120 @@ h2 {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+.select-dropdown {
   width: 100%;
-  background-color: #0f172a;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  padding: 8px 36px 8px 10px;
+  background: rgba(11, 15, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  padding: 9px 12px;
   color: #f8fafc;
   font-size: 13px;
   outline: none;
-  transition: border-color 0.2s;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="password"] {
+  padding-right: 36px;
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px #3b82f6;
+input[type="password"]:focus,
+.select-dropdown:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
 
 #toggle-key-visibility {
   position: absolute;
-  right: 6px;
+  right: 8px;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: #94a3b8;
   padding: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
-.btn-row {
-  display: flex;
-  gap: 8px;
+#toggle-key-visibility:hover {
+  opacity: 1;
 }
 
+/* Glass & Gradient Buttons */
 .btn {
-  width: 100%;
-  padding: 8px 14px;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 9px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
 }
 
-.message-box {
-  font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  display: none;
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(10px);
 }
 
-.message-box.success {
-  display: block;
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px);
 }
 
-.message-box.error {
-  display: block;
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+.btn:active {
+  transform: translateY(0);
 }
 
-.message-box.info {
-  display: block;
-  background-color: rgba(59, 130, 246, 0.15);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
+/* Settings Items */
 .setting-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.setting-item:first-of-type {
-  border-top: none;
-  padding-top: 0;
+  gap: 12px;
 }
 
 .setting-name {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: #f1f5f9;
 }
 
 .setting-desc {
-  font-size: 10px;
-  color: #94a3b8;
-}
-
-.select-dropdown {
-  background-color: #0f172a;
-  border: 1px solid #475569;
-  color: #f1f5f9;
-  padding: 5px 8px;
-  border-radius: 6px;
   font-size: 11px;
-  outline: none;
-  cursor: pointer;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin-top: 2px;
 }
 
-/* Switch Toggle */
+/* Smooth iOS/Modern Switch */
 .switch {
   position: relative;
   display: inline-block;
-  width: 38px;
-  height: 20px;
+  width: 44px;
+  height: 24px;
   flex-shrink: 0;
 }
 
@@ -274,72 +288,70 @@ input[type="password"]:focus {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #475569;
-  transition: .2s;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: .2s;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 input:checked + .slider {
-  background-color: #10b981;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
 }
 
 input:checked + .slider:before {
-  transform: translateX(18px);
+  transform: translateX(20px);
 }
 
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.guide-box {
-  background-color: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.25);
+/* Toast/Message Box */
+.message-box {
+  display: none;
+  padding: 8px 12px;
   border-radius: 8px;
-  padding: 10px 12px;
   font-size: 11px;
-  color: #cbd5e1;
+  font-weight: 600;
   line-height: 1.4;
+  text-align: center;
 }
 
-.guide-box ol {
-  padding-left: 18px;
-  margin-top: 6px;
+.message-box.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
-.guide-box li {
-  margin-bottom: 4px;
+.message-box.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
 }
 
-.guide-box a {
-  color: #38bdf8;
-  text-decoration: none;
-}
-
-.guide-box a:hover {
-  text-decoration: underline;
+.message-box.info {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.3);
 }
 
 .footer {
   text-align: center;
   font-size: 10px;
   color: #64748b;
-  padding-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
