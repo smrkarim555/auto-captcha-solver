@@ -330,11 +330,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateLicenseUI(isLicensed, expiryDate, userName, customMsg) {
     if (!subStatusInfo || !subBadge) return;
+    const featuresContainer = document.getElementById("features-container");
+    const featuresLockedBanner = document.getElementById("features-locked-banner");
+
+    function setFeaturesLock(locked) {
+      if (!featuresContainer) return;
+      if (locked) {
+        if (featuresLockedBanner) featuresLockedBanner.style.display = "block";
+        featuresContainer.style.opacity = "0.35";
+        featuresContainer.style.pointerEvents = "none";
+        featuresContainer.style.filter = "grayscale(70%)";
+      } else {
+        if (featuresLockedBanner) featuresLockedBanner.style.display = "none";
+        featuresContainer.style.opacity = "1";
+        featuresContainer.style.pointerEvents = "auto";
+        featuresContainer.style.filter = "none";
+      }
+    }
 
     if (customMsg) {
       subStatusInfo.innerHTML = `<span style="color: #f87171;">${customMsg}</span>`;
       subBadge.textContent = "Inactive";
       subBadge.className = "badge-status disconnected";
+      setFeaturesLock(true);
       return;
     }
 
@@ -342,6 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
       subStatusInfo.innerHTML = `<span style="color: #94a3b8;">No active subscription</span>`;
       subBadge.textContent = "Inactive";
       subBadge.className = "badge-status disconnected";
+      setFeaturesLock(true);
       return;
     }
 
@@ -357,6 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span style="font-size: 11px; color: #cbd5e1;">Remaining: <b>${diffDays} days</b> (Expires: ${new Date(expiryDate).toLocaleDateString()})</span>
         </div>
       `;
+      setFeaturesLock(false);
     } else {
       subBadge.textContent = "Expired";
       subBadge.className = "badge-status disconnected";
@@ -366,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span style="font-size: 11px; color: #94a3b8;">Please contact Admin to renew</span>
         </div>
       `;
+      setFeaturesLock(true);
     }
   }
 

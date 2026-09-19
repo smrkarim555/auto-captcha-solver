@@ -71,9 +71,21 @@
     return list.some(domain => hostname === domain || hostname.endsWith("." + domain) || domain.includes(hostname));
   }
 
+  function isLicenseActive() {
+    if (isLicensed === false) return false;
+    if (licenseExpiry && Date.now() > licenseExpiry) return false;
+    return true;
+  }
+
   // Passive 2-second check: uses 0% CPU
   setInterval(() => {
     if (isSolving) return;
+
+    // 0. Complete Inactivity: If license is not active, do NOTHING at all!
+    if (!isLicenseActive()) {
+      removeBadge();
+      return;
+    }
 
     // 1. Is extension enabled and site allowed?
     if (!isSiteAllowed()) {
@@ -98,14 +110,8 @@
       removeBadge();
     }
 
-  function isLicenseActive() {
-    if (isLicensed === false) return false;
-    if (licenseExpiry && Date.now() > licenseExpiry) return false;
-    return true;
-  }
-
-  // 4. Auto-solve if enabled, license is active, and new challenge
-    if (autoSolveEnabled && img.src !== lastSolvedSrc && apiKey && isLicenseActive()) {
+    // 4. Auto-solve if enabled and new challenge
+    if (autoSolveEnabled && img.src !== lastSolvedSrc && apiKey) {
       isSolving = true;
       updateBadgeText("🤖 Auto-solving in 1s...");
       setTimeout(() => {

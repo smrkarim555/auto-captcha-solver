@@ -48,8 +48,15 @@
       </details>
     </div>
 
-    <!-- Master Switch Card -->
-    <div class="card highlight-card">
+    <!-- Locked Banner if Not Active -->
+    <div id="features-locked-banner" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 10px; text-align: center; font-size: 12px; color: #f87171; font-weight: 600;">
+      🔒 Extension Locked: Active subscription required to access settings and solver features.
+    </div>
+
+    <!-- Main Features Container (Locked when Inactive) -->
+    <div id="features-container" style="display: flex; flex-direction: column; gap: 14px; transition: 0.3s all;">
+      <!-- Master Switch Card -->
+      <div class="card highlight-card">
       <div class="setting-item">
         <div>
           <div class="setting-name" style="font-size: 13px; font-weight: 700;">Extension Status</div>
@@ -137,6 +144,7 @@
           <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
         </select>
       </div>
+    </div>
     </div>
 
     <div class="footer">
