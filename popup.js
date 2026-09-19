@@ -157,13 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Device ID & License Management ---
+  const DEFAULT_LICENSE_URL = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
+
   const inputDeviceId = document.getElementById("input-device-id");
   const btnCopyDeviceId = document.getElementById("btn-copy-device-id");
   const subStatusInfo = document.getElementById("sub-status-info");
   const subBadge = document.getElementById("sub-badge");
   const btnCheckLicense = document.getElementById("btn-check-license");
-  const inputLicenseUrl = document.getElementById("input-license-url");
-  const btnSaveLicenseUrl = document.getElementById("btn-save-license-url");
 
   let currentDeviceId = "";
 
@@ -171,27 +171,24 @@ document.addEventListener("DOMContentLoaded", () => {
   initDeviceId();
 
   async function initDeviceId() {
-    chrome.storage.local.get(["deviceId", "githubLicenseUrl", "isLicensed", "licenseExpiry", "licenseUser"], async (data) => {
+    chrome.storage.local.get(["deviceId", "isLicensed", "licenseExpiry", "licenseUser"], async (data) => {
       if (data.deviceId) {
-        currentDeviceId = data.deviceId;
+        currentDeviceId = data.deviceId.replace(/\s+/g, "").toUpperCase();
+        if (currentDeviceId !== data.deviceId) {
+          chrome.storage.local.set({ deviceId: currentDeviceId });
+        }
       } else {
         currentDeviceId = await generateUniqueDeviceId();
         chrome.storage.local.set({ deviceId: currentDeviceId });
       }
 
-      const defaultLicenseUrl = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
-      const activeUrl = data.githubLicenseUrl || defaultLicenseUrl;
-
       if (inputDeviceId) inputDeviceId.value = currentDeviceId;
-      if (inputLicenseUrl) {
-        inputLicenseUrl.value = activeUrl;
-      }
 
       // Display cached license status first
       updateLicenseUI(data.isLicensed, data.licenseExpiry, data.licenseUser);
 
       // Auto-sync from GitHub
-      verifyLicenseFromRemote(activeUrl, currentDeviceId, false);
+      verifyLicenseFromRemote(DEFAULT_LICENSE_URL, currentDeviceId, false);
     });
   }
 
@@ -229,44 +226,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Save License URL
-  if (btnSaveLicenseUrl) {
-    btnSaveLicenseUrl.addEventListener("click", () => {
-      const url = inputLicenseUrl.value.trim();
-      if (!url) {
-        alert("Please enter a valid GitHub Raw URL!");
-        return;
-      }
-      chrome.storage.local.set({ githubLicenseUrl: url }, () => {
-        alert("✓ GitHub License URL saved! Verifying license now...");
-        verifyLicenseFromRemote(url, currentDeviceId, true);
-      });
-    });
-  }
-
-  const DEFAULT_LICENSE_URL = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
-
   // Refresh / Sync License
   if (btnCheckLicense) {
     btnCheckLicense.addEventListener("click", () => {
-      chrome.storage.local.get(["githubLicenseUrl"], (data) => {
-        const url = (inputLicenseUrl && inputLicenseUrl.value.trim()) || data.githubLicenseUrl || DEFAULT_LICENSE_URL;
-        verifyLicenseFromRemote(url, currentDeviceId, true);
-      });
+      verifyLicenseFromRemote(DEFAULT_LICENSE_URL, currentDeviceId, true);
     });
   }
 
   async function verifyLicenseFromRemote(url, deviceId, isManualClick = false) {
     if (subStatusInfo) {
-      subStatusInfo.textContent = "Verifying license with server...";
+      subStatusInfo.textContent = "Checking server license...";
       subStatusInfo.style.color = "#38bdf8";
     }
 
-    const activeUrl = (url && url.trim()) || DEFAULT_LICENSE_URL;
-
     try {
-      // Fetch with cache busting to get real-time status from GitHub
-      const response = await fetch(`${activeUrl}?t=${Date.now()}`);
+      // Instant fetch with no-store cache to avoid any ISP or browser delay
+      const response = await fetch(`${DEFAULT_LICENSE_URL}?t=${Date.now()}&_=${Math.random()}`, {
+        cache: "no-store"
+      });
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
       }
@@ -274,14 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const json = await response.json();
       const devices = json.devices || {};
       
-      const cleanDevId = (deviceId || "").trim().toUpperCase();
-      let userRecord = devices[cleanDevId];
-      if (!userRecord) {
-        const matchedKey = Object.keys(devices).find(k => 
-          k.trim().toUpperCase() === cleanDevId || 
-          k.replace(/[\s-_]/g, "").toUpperCase() === cleanDevId.replace(/[\s-_]/g, "").toUpperCase()
-        );
-        if (matchedKey) userRecord = devices[matchedKey];
+      const cleanDevId = (deviceId || currentDeviceId || "").replace(/[\s-_]/g, "").toUpperCase();
+      let userRecord = null;
+
+      for (const [key, val] of Object.entries(devices)) {
+        if (key.replace(/[\s-_]/g, "").toUpperCase() === cleanDevId) {
+          userRecord = val;
+          break;
+        }
       }
 
       if (!userRecord) {

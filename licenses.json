@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-19T21:02:34.447Z",
+  "updatedAt": "2026-09-20T03:00:00.000Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
-      "createdAt": "2026-09-19T21:02:34.446Z",
-      "expiryDate": "2026-09-20T21:02:34.446Z",
+      "createdAt": "2026-09-20T03:00:00.000Z",
+      "expiryDate": "2026-10-20T23:59:59.000Z",
       "status": "active",
-      "planDays": 1
+      "planDays": 30
     }
   }
 }
