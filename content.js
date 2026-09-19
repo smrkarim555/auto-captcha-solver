@@ -127,12 +127,12 @@
       badge.innerHTML = `
         <span class="status-dot error" style="background:#ef4444;"></span>
         <span id="ai-badge-text" style="font-weight:600; color:#f87171;">🔐 License Expired</span>
-        <button id="ai-badge-btn" class="badge-btn" style="background:#ef4444;" title="মেয়াদ শেষ">Renew</button>
+        <button id="ai-badge-btn" class="badge-btn" style="background:#ef4444;" title="License Expired">Renew</button>
       `;
       const btn = badge.querySelector("#ai-badge-btn");
       if (btn) {
         btn.onclick = () => {
-          alert("আপনার এক্সটেনশনের সাবস্ক্রিপশন মেয়াদ শেষ হয়ে গেছে! দয়া করে এক্সটেনশন পপআপ ওপেন করে লাইসেন্স চেক বা রিনিউ করুন।");
+          alert("Your extension subscription has expired! Please open the extension popup to check or renew your license.");
         };
       }
       return;

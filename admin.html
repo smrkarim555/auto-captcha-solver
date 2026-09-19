@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -214,22 +214,22 @@
   <header>
     <div>
       <h1>🔐 Extension License & User Manager</h1>
-      <div class="subtitle">ইউজারদের ডিভাইস আইডি ও ১ মাসের ট্রায়াল/সাবস্ক্রিপশন নিয়ন্ত্রণ প্যানেল</div>
+      <div class="subtitle">Central management dashboard for Device IDs & Subscriptions (e.g. 1 Month / Custom)</div>
     </div>
   </header>
 
   <!-- Stats Row -->
   <div class="stats-row">
     <div class="stat-card">
-      <div class="stat-title">মোট ব্যবহারকারী (Total Users)</div>
+      <div class="stat-title">Total Users</div>
       <div id="stat-total" class="stat-num total">0</div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">সক্রিয় সাবস্ক্রিপশন (Active)</div>
+      <div class="stat-title">Active Subscriptions</div>
       <div id="stat-active" class="stat-num active">0</div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">মেয়াদ উত্তীর্ণ (Expired)</div>
+      <div class="stat-title">Expired</div>
       <div id="stat-expired" class="stat-num expired">0</div>
     </div>
   </div>
@@ -238,39 +238,39 @@
     <!-- Left Column: Add / Renew User -->
     <div>
       <div class="card">
-        <div class="card-title">➕ নতুন ইউজার যোগ বা রিনিউ করুন</div>
+        <div class="card-title">➕ Add or Renew User</div>
         <form id="license-form">
           <div class="form-group">
-            <label>ব্যবহারকারীর নাম / নোট</label>
-            <input type="text" id="user-name" placeholder="যেমন: রহিম (Rahim)" required>
+            <label>User Name / Note</label>
+            <input type="text" id="user-name" placeholder="e.g. John Doe" required>
           </div>
 
           <div class="form-group">
-            <label>ইউজারের ডিভাইস আইডি (Device ID)</label>
-            <input type="text" id="device-id" placeholder="যেমন: DEV-9B4F82C10AD54E91" required>
+            <label>User Device ID</label>
+            <input type="text" id="device-id" placeholder="e.g. DEV-9B4F82C10AD5" required>
           </div>
 
           <div class="form-group">
-            <label>সাবস্ক্রিপশন সময়কাল</label>
+            <label>Subscription Duration</label>
             <select id="duration-select">
-              <option value="30" selected>১ মাস (৩০ দিন)</option>
-              <option value="7">৭ দিন (ট্রায়াল)</option>
-              <option value="90">৩ মাস (৯০ দিন)</option>
-              <option value="180">৬ মাস (১৮০ দিন)</option>
-              <option value="365">১ বছর (৩৬৫ দিন)</option>
-              <option value="3650">লাইফটাইম (১০ বছর)</option>
+              <option value="30" selected>1 Month (30 Days)</option>
+              <option value="7">7 Days (Trial)</option>
+              <option value="90">3 Months (90 Days)</option>
+              <option value="180">6 Months (180 Days)</option>
+              <option value="365">1 Year (365 Days)</option>
+              <option value="3650">Lifetime (10 Years)</option>
             </select>
           </div>
 
-          <button type="submit" class="btn">💾 সাবস্ক্রিপশন সেভ করুন</button>
+          <button type="submit" class="btn">💾 Save Subscription</button>
         </form>
       </div>
 
       <!-- Export to GitHub Card -->
       <div class="card">
-        <div class="card-title">🚀 GitHub-এ আপলোড করার ডেটা</div>
+        <div class="card-title">🚀 Export to GitHub</div>
         <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-          ইউজার যুক্ত করার পর নিচের বাটনে ক্লিক করে <code>licenses.json</code> ফাইলটি ডাউনলোড বা কপি করে আপনার GitHub রিপোজিটরিতে পেস্ট করুন।
+          After adding or modifying users, click below to download or copy the <code>licenses.json</code> file to commit to your GitHub repository.
         </p>
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <button id="btn-download-json" class="btn btn-success">📥 Download licenses.json</button>
@@ -282,17 +282,17 @@
     <!-- Right Column: Users List -->
     <div>
       <div class="card">
-        <div class="card-title">👥 ব্যবহারকারীদের তালিকা (Registered Devices)</div>
+        <div class="card-title">👥 Registered Devices & Users</div>
         <div style="overflow-x: auto;">
           <table>
             <thead>
               <tr>
-                <th>নাম</th>
-                <th>ডিভাইস আইডি</th>
-                <th>মেয়াদ শেষ</th>
-                <th>বাকি দিন</th>
-                <th>স্ট্যাটাস</th>
-                <th>অ্যাকশন</th>
+                <th>User</th>
+                <th>Device ID</th>
+                <th>Expires On</th>
+                <th>Days Left</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="user-table-body">
@@ -304,12 +304,12 @@
 
       <!-- Quick Setup Guide -->
       <div class="guide-box">
-        <b>💡 GitHub-এর সাথে কীভাবে কানেক্ট করবেন:</b>
+        <b>💡 How to Connect with GitHub:</b>
         <ol style="margin-left: 18px; margin-top: 6px;">
-          <li>উপরে <b>"Download licenses.json"</b> বাটনে চাপ দিন।</li>
-          <li>ফাইলটি আপনার গিটহাব রিপোজিটরির মেইন ব্রাঞ্চে আপলোড / পুশ করুন।</li>
-          <li>গিটহাব থেকে <code>Raw</code> লিংকটি কপি করুন (যেমন: <code>https://raw.githubusercontent.com/username/repo/main/licenses.json</code>)।</li>
-          <li>এক্সটেনশনের সেটিংসে এই লিংকটি দিয়ে দিন। এক্সটেনশন নিজে থেকেই চেক করে ইউজারকে একটিভ বা ব্লক করবে!</li>
+          <li>Click <b>"Download licenses.json"</b> above (or copy JSON).</li>
+          <li>Upload / push the file to the <code>main</code> branch of your GitHub repository.</li>
+          <li>Click on <code>licenses.json</code> on GitHub and click <b>Raw</b> to get the link (e.g. <code>https://raw.githubusercontent.com/username/repo/main/licenses.json</code>).</li>
+          <li>Paste that Raw URL into the Extension popup settings. The extension will automatically validate and control user access directly from GitHub!</li>
         </ol>
       </div>
     </div>
@@ -348,7 +348,7 @@
     total = deviceKeys.length;
 
     if (total === 0) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 20px;">কোনো ইউজার এখনও যুক্ত করা হয়নি।</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 20px;">No users added yet. Add a user from the left form.</td></tr>`;
     }
 
     deviceKeys.forEach((devId) => {
@@ -363,10 +363,10 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td style="font-weight: 600;">${escapeHtml(u.name || "Unknown")}</td>
-        <td><span class="copy-chip" title="ক্লিক করে কপি করুন" onclick="navigator.clipboard.writeText('${devId}'); alert('কপি হয়েছে: ${devId}')">${devId}</span></td>
+        <td><span class="copy-chip" title="Click to copy" onclick="navigator.clipboard.writeText('${devId}'); alert('Copied: ${devId}')">${devId}</span></td>
         <td>${new Date(u.expiryDate).toLocaleDateString()}</td>
         <td style="font-weight: bold; color: ${isActive ? 'var(--success)' : 'var(--danger)'};">
-          ${diffDays > 0 ? diffDays + ' দিন' : '০ দিন'}
+          ${diffDays > 0 ? diffDays + ' days' : '0 days'}
         </td>
         <td>
           <span class="badge ${isActive ? 'badge-active' : 'badge-expired'}">
@@ -374,7 +374,7 @@
           </span>
         </td>
         <td>
-          <button class="btn-danger" onclick="deleteUser('${devId}')">মুছে ফেলুন</button>
+          <button class="btn-danger" onclick="deleteUser('${devId}')">Delete</button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -407,13 +407,13 @@
     };
 
     saveLicenses(db);
-    alert(`✓ ${name}-এর জন্য ${durationDays} দিনের লাইসেন্স সেভ হয়েছে!`);
+    alert(`✓ License saved for ${name} (${durationDays} days validity)!`);
     document.getElementById("user-name").value = "";
     document.getElementById("device-id").value = "";
   });
 
   window.deleteUser = function(devId) {
-    if (confirm(`আপনি কি সত্যিই ${devId} মুছে ফেলতে চান?`)) {
+    if (confirm(`Are you sure you want to delete ${devId}?`)) {
       const db = getLicenses();
       delete db[devId];
       saveLicenses(db);
@@ -444,7 +444,7 @@
   document.getElementById("btn-copy-json").addEventListener("click", () => {
     const jsonStr = generateExportJSON();
     navigator.clipboard.writeText(jsonStr).then(() => {
-      alert("✓ licenses.json এর সম্পূর্ণ কোড কপি হয়েছে! এখন GitHub-এ পেস্ট করতে পারেন।");
+      alert("✓ Complete licenses.json content copied to clipboard! You can now commit it to GitHub.");
     });
   });
 

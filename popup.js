@@ -43,10 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
     siteModeSelect.value = mode;
     toggleSitesContainer(mode);
 
-    // Allowed Sites (default "kolotibablo.com, localhost")
+    // Allowed Sites
     allowedSitesInput.value = data.allowedSites || "kolotibablo.com, localhost";
 
-    // Show Floating Badge (default true, but only when captcha is present)
+    // Show Floating Badge
     floatingBadgeToggle.checked = data.showFloatingBadge !== undefined ? data.showFloatingBadge : true;
 
     // Auto solve
@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
               const updated = current ? `${current}, ${domain}` : domain;
               allowedSitesInput.value = updated;
               chrome.storage.local.set({ allowedSites: updated });
-              showMessage(`✓ "${domain}" সাইটটি যুক্ত হয়েছে!`, "success");
+              showMessage(`✓ "${domain}" added to allowed list!`, "success");
             } else {
-              showMessage(`"${domain}" সাইটটি আগেই তালিকায় আছে!`, "info");
+              showMessage(`"${domain}" is already in the list!`, "info");
             }
           }
         } catch (e) {}
@@ -135,22 +135,22 @@ document.addEventListener("DOMContentLoaded", () => {
   saveKeyBtn.addEventListener("click", () => {
     const key = apiKeyInput.value.trim();
     if (!key) {
-      showMessage("অনুগ্রহ করে একটি API Key লিখুন!", "error");
+      showMessage("Please enter an API Key!", "error");
       return;
     }
 
-    showMessage("ভ্যালিডেট করা হচ্ছে...", "info");
+    showMessage("Validating API Key...", "info");
     saveKeyBtn.disabled = true;
 
     chrome.runtime.sendMessage({ action: "TEST_API_KEY", apiKey: key }, (response) => {
       saveKeyBtn.disabled = false;
       if (response && response.success) {
         chrome.storage.local.set({ geminiApiKey: key }, () => {
-          showMessage("✓ API Key সফলভাবে সেভ হয়েছে!", "success");
+          showMessage("✓ API Key successfully verified and saved!", "success");
           updateStatus(true);
         });
       } else {
-        showMessage(`❌ ভুল API Key: ${response?.error || "Invalid response"}`, "error");
+        showMessage(`❌ Invalid API Key: ${response?.error || "Connection error"}`, "error");
         updateStatus(false);
       }
     });
@@ -233,11 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
     btnSaveLicenseUrl.addEventListener("click", () => {
       const url = inputLicenseUrl.value.trim();
       if (!url) {
-        alert("অনুগ্রহ করে একটি সঠিক GitHub Raw URL দিন!");
+        alert("Please enter a valid GitHub Raw URL!");
         return;
       }
       chrome.storage.local.set({ githubLicenseUrl: url }, () => {
-        alert("✓ GitHub License URL সেভ হয়েছে! এখন লাইসেন্স চেক করা হচ্ছে...");
+        alert("✓ GitHub License URL saved! Verifying license now...");
         verifyLicenseFromRemote(url, currentDeviceId, true);
       });
     });
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chrome.storage.local.get(["githubLicenseUrl"], (data) => {
         const url = (inputLicenseUrl && inputLicenseUrl.value.trim()) || data.githubLicenseUrl;
         if (!url) {
-          alert("GitHub License URL সেট করা নেই! নিচের '⚙️ GitHub License URL সেটিংস'-এ গিয়ে আপনার রিপোজিটরির Raw URL দিন।");
+          alert("GitHub License URL is not set! Expand '⚙️ GitHub License URL Settings' below and paste your repository's raw URL.");
           return;
         }
         verifyLicenseFromRemote(url, currentDeviceId, true);
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function verifyLicenseFromRemote(url, deviceId, isManualClick = false) {
     if (subStatusInfo) {
-      subStatusInfo.textContent = "সার্ভার থেকে লাইসেন্স যাচাই হচ্ছে...";
+      subStatusInfo.textContent = "Verifying license with server...";
       subStatusInfo.style.color = "#38bdf8";
     }
 
@@ -277,8 +277,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!userRecord) {
         // Device not registered in licenses.json
         chrome.storage.local.set({ isLicensed: false, licenseExpiry: null });
-        updateLicenseUI(false, null, null, "ডিভাইসটি ডাটাবেসে পাওয়া যায়নি! Admin-কে আপনার ডিভাইস আইডি পাঠান।");
-        if (isManualClick) alert(`❌ লাইসেন্স নিষ্ক্রিয়! আপনার ডিভাইস আইডি (${deviceId}) অ্যাডমিনের licenses.json এ যুক্ত নেই।`);
+        updateLicenseUI(false, null, null, "Device not registered in database! Send your Device ID to Admin.");
+        if (isManualClick) alert(`❌ License inactive! Your Device ID (${deviceId}) is not registered in licenses.json.`);
         return;
       }
 
@@ -297,15 +297,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (isManualClick) {
         if (isActive) {
-          alert(`✅ অভিনন্দন ${userRecord.name || ""}! আপনার সাবস্ক্রিপশন সক্রিয়। বাকি আছে: ${diffDays} দিন।`);
+          alert(`✅ Welcome ${userRecord.name || ""}! Your subscription is active. Remaining: ${diffDays} days.`);
         } else {
-          alert(`❌ আপনার লাইসেন্সের মেয়াদ শেষ হয়ে গেছে!`);
+          alert(`❌ Your subscription has expired!`);
         }
       }
     } catch (err) {
       console.warn("License sync error:", err);
       if (subStatusInfo) {
-        subStatusInfo.innerHTML = `<span style="color: #f87171;">⚠️ সার্ভারের সাথে যোগাযোগ ব্যর্থ: ${err.message}</span>`;
+        subStatusInfo.innerHTML = `<span style="color: #f87171;">⚠️ Server connection failed: ${err.message}</span>`;
       }
     }
   }
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!expiryDate) {
-      subStatusInfo.innerHTML = `<span style="color: #94a3b8;">কোনো সক্রিয় সাবস্ক্রিপশন নেই</span>`;
+      subStatusInfo.innerHTML = `<span style="color: #94a3b8;">No active subscription</span>`;
       subBadge.textContent = "Inactive";
       subBadge.className = "badge-status disconnected";
       return;
@@ -335,8 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
       subBadge.className = "badge-status connected";
       subStatusInfo.innerHTML = `
         <div style="color: #34d399;">
-          ✅ সক্রিয় ইউজার: <b>${userName || "User"}</b><br>
-          <span style="font-size: 11px; color: #cbd5e1;">মেয়াদ বাকি: <b>${diffDays} দিন</b> (${new Date(expiryDate).toLocaleDateString()})</span>
+          ✅ Active User: <b>${userName || "User"}</b><br>
+          <span style="font-size: 11px; color: #cbd5e1;">Remaining: <b>${diffDays} days</b> (Expires: ${new Date(expiryDate).toLocaleDateString()})</span>
         </div>
       `;
     } else {
@@ -344,8 +344,8 @@ document.addEventListener("DOMContentLoaded", () => {
       subBadge.className = "badge-status disconnected";
       subStatusInfo.innerHTML = `
         <div style="color: #f87171;">
-          ❌ মেয়াদ শেষ (Expired)<br>
-          <span style="font-size: 11px; color: #94a3b8;">রিনিউ করার জন্য Admin-এর সাথে যোগাযোগ করুন</span>
+          ❌ Subscription Expired<br>
+          <span style="font-size: 11px; color: #94a3b8;">Please contact Admin to renew</span>
         </div>
       `;
     }
@@ -367,4 +367,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-

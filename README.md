@@ -1,82 +1,93 @@
 # 🤖 Auto AI Captcha Solver (Chrome Extension)
 
-সম্পূর্ণ **ফ্রি Google Gemini Vision API** ব্যবহার করে যেকোনো গ্রিড-বেসড ইমেজ ক্যাপচা (যেমন: Cloudflare, hCaptcha, বা অন্যান্য ৯-ঘরের ইমেজ ক্যাপচা) স্বয়ংক্রিয়ভাবে সলভ করার কাস্টম ক্রোম এক্সটেনশন।
+A Chrome extension powered by **Google Gemini Vision API** to analyze and assist with image grid captchas. Includes a complete **Subscription & Device Licensing Manager** with an **Admin Panel** backed by GitHub.
 
 ---
 
-## 📁 এই ফোল্ডারের লোকেশন:
+## 📁 Project Directory:
 ```
 c:\Users\Rk pc\Desktop\testing\auto-captcha-solver-ai
 ```
 
 ---
 
-## 🚀 সেটআপ করার সহজ নিয়মাবলী (মাত্র ৩টি ধাপ):
+## 🚀 Setup Guide (3 Simple Steps):
 
-### ১. ফ্রি Gemini API Key নেওয়া (১ মিনিট সময় লাগবে)
-1. ব্রাউজারে [Google AI Studio (API Key Page)](https://aistudio.google.com/app/apikey) লিংকে যান।
-2. আপনার গুগল অ্যাকাউন্ট দিয়ে লগইন করে **"Create API Key"** বাটনে ক্লিক করুন।
-3. তৈরি হওয়া কী-টি কপি করে নিন (এটি গুগলের অফিসিয়াল ফ্রি টিয়ার, মাসে হাজার হাজার রিকোয়েস্ট সম্পূর্ণ ফ্রি)।
+### 1. Get a Free Gemini API Key (1 minute)
+1. Go to [Google AI Studio (API Key Page)](https://aistudio.google.com/app/apikey).
+2. Sign in with your Google Account and click **"Create API Key"**.
+3. Copy the generated key (Google provides a free tier with high request quotas).
 
 ---
 
-### ২. Chrome / Brave / Edge ব্রাউজারে এক্সটেনশন অ্যাড করা
-1. আপনার ব্রাউজারে নতুন ট্যাবে যান এবং লিখুন:
-   - Chrome হলে: `chrome://extensions`
-   - Brave হলে: `brave://extensions`
-   - Edge হলে: `edge://extensions`
-2. উপরে ডানদিকের কোণায় **"Developer mode"** অন (Enable) করুন।
-3. উপরে বামদিকে **"Load unpacked"** বাটনে ক্লিক করুন।
-4. ফাইল সিলেক্টরে গিয়ে এই ফোল্ডারটি সিলেক্ট করুন:
+### 2. Install Extension in Chrome / Brave / Edge
+1. Open your browser and navigate to:
+   - Chrome: `chrome://extensions`
+   - Brave: `brave://extensions`
+   - Edge: `edge://extensions`
+2. In the top-right corner, turn on **"Developer mode"**.
+3. In the top-left corner, click **"Load unpacked"**.
+4. Select this directory:
    `c:\Users\Rk pc\Desktop\testing\auto-captcha-solver-ai`
-5. ব্যাস! আপনার ব্রাউজারে **Auto AI Captcha Solver** এক্সটেনশনটি যুক্ত হয়ে যাবে।
+5. The **Auto AI Captcha Solver** extension is now installed.
 
 ---
 
-### ৩. API Key সেভ করা
-1. ব্রাউজারের টুলবার থেকে এক্সটেনশন আইকনে (🤖) ক্লিক করুন।
-2. আপনার কপি করা **Gemini API Key** বক্সে পেস্ট করুন।
-3. **"Save & Test Key"** বাটনে চাপুন।
-4. সবুজ রঙের `Active` ব্যাজ দেখালে এক্সটেনশনটি প্রস্তুত!
+### 3. Configure API Key
+1. Click on the extension icon (🤖) in your browser toolbar.
+2. Paste your copied **Gemini API Key** into the input box.
+3. Click **"Save & Test Key"**.
+4. Once the status badge shows `Active`, the extension is ready.
 
 ---
 
-## 🧪 এখনই টেস্ট করার নিয়ম:
-আমরা আপনার জন্য একটি অফলাইন টেস্ট পেজ বানিয়ে দিয়েছি।
-1. ব্রাউজারের একটি নতুন ট্যাবে এই ফাইলটি ওপেন করুন:
+## 🔐 Subscription & Licensing System:
+
+Each user installation automatically generates a unique **Device ID** (e.g. `DEV-9B4F82C10AD5`). You can control access, grant trial periods, or activate 1-month subscriptions through the included **Admin Panel**.
+
+### How to Manage Users:
+1. Open the Admin Panel directly in your browser:
    ```
-   file:///c:/Users/Rk pc/Desktop/testing/auto-captcha-solver-ai/test-captcha.html
+   file:///c:/Users/Rk pc/Desktop/testing/auto-captcha-solver-ai/admin.html
    ```
-2. পেজটি লোড হলেই নিচে ডানপাশে AI ব্যাজ আসবে এবং ১.৫ সেকেন্ডের মধ্যে স্বয়ংক্রিয়ভাবে সঠিক ছবিগুলোতে ক্লিক করে **Verify** বাটনে ক্লিক করে দেবে!
+2. The user copies their **Device ID** from the extension popup and sends it to you.
+3. In `admin.html`, enter their name, paste their **Device ID**, choose the validity period (e.g. **1 Month / 30 Days**), and click **"Save Subscription"**.
+4. Click **"Download licenses.json"** (or **Copy JSON**).
+5. Commit / upload `licenses.json` to your GitHub repository.
+6. The extension fetches and verifies the subscription in real-time from GitHub!
 
 ---
 
-## ⚙️ অতিরিক্ত সুবিধাসমূহ:
-* **Auto Solve Toggle:** আপনি চাইলে স্বয়ংক্রিয় সলভিং অন/অফ করতে পারেন।
-* **Click Delay (Human Speed):** সাধারণ মানুষের মতো ন্যাচারাল ক্লিক স্পিড (যেমন 400ms) সেট করা আছে যাতে বট ডিটেকশন এড়ানো যায়।
-* **Visual Glow Feedback:** এআই কোন কোন ঘর সিলেক্ট করেছে তা সবুজ রঙের টিক চিহ্ন সহ হাইলাইট হবে।
+## 🚀 Pushing to GitHub:
 
----
+This repository is already initialized with Git. Follow these steps to push to your GitHub account:
 
-## 🔐 ইউজার সাবস্ক্রিপশন ও অ্যাডমিন প্যানেল গাইড:
-আমরা একটি কমপ্লিট **Admin Panel (`admin.html`)** ও লাইসেন্স কন্ট্রোল সিস্টেম যুক্ত করেছি।
-
-### কীভাবে কাজ করবেন:
-1. ব্রাউজারে `admin.html` ফাইলটি ওপেন করুন (ডাবল ক্লিক করে)।
-2. ইউজার আপনাকে এক্সটেনশন পপআপ থেকে তার **Device ID** পাঠাবে।
-3. আপনি অ্যাডমিন প্যানেলে ইউজারের নাম, ডিভাইস আইডি এবং মেয়াদ (যেমন: ৩০ দিন / ১ মাস) দিয়ে **"Save"** করবেন।
-4. **"Download licenses.json"** বাটনে চাপ দিয়ে ফাইলটি আপনার GitHub রিপোজিটরিতে পুশ করবেন।
-5. এক্সটেনশনটি GitHub থেকে সরাসরি ডেটা পড়ে ইউজারকে সক্রিয় বা ব্লক রাখবে!
-
----
-
-## 🚀 GitHub-এ পুশ করার নিয়মাবলী:
-1. GitHub-এ গিয়ে একটি নতুন রিপোজিটরি তৈরি করুন (যেমন: `my-extension`).
-2. আপনার কম্পিউটারের টার্মিনালে নিচের ৩টি কমান্ড চালান:
+1. Create a new repository on [GitHub.com](https://github.com/) (e.g. `my-captcha-extension`).
+2. Run these commands in PowerShell or Terminal:
    ```bash
    git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
    git branch -M main
    git push -u origin main
    ```
-3. গিটহাবে `licenses.json` ফাইলটিতে ক্লিক করে উপরে ডানপাশে **`Raw`** বাটনে চাপ দিলে একটি লিংক পাবেন। সেই লিংকটি এক্সটেনশনের সেটিংসে দিয়ে দিলে সকল ইউজারের লাইসেন্স সেন্ট্রালি কন্ট্রোল হবে!
+3. Open `licenses.json` in your GitHub repository, click **Raw**, and copy the URL (e.g., `https://raw.githubusercontent.com/username/repo/main/licenses.json`).
+4. In the extension popup under **"⚙️ GitHub License URL Settings"**, paste this Raw URL and save. All client extensions will now automatically sync licenses with your GitHub repo!
 
+---
+
+## 🧪 Testing Offline:
+A standalone offline demo page is provided for local testing:
+1. Open this file in your browser:
+   ```
+   file:///c:/Users/Rk pc/Desktop/testing/auto-captcha-solver-ai/test-captcha.html
+   ```
+2. The AI badge will appear in the bottom-right corner and assist with solving the demo tiles.
+
+---
+
+## ⚙️ Key Features:
+* **Unique Device ID:** Generates a persistent machine/device fingerprint per installation.
+* **Subscription Expiry Control:** Automatic countdown (e.g. 30 days trial/license). Locks functionality when expired.
+* **Admin Dashboard (`admin.html`):** Full standalone UI for adding users, tracking days left, and exporting JSON.
+* **Domain Restrictions:** Configure allowed domains (e.g. `kolotibablo.com, localhost`) or enable across all sites.
+* **Human-like Click Delay:** Configurable delays (e.g. 400ms) between clicks.
+* **Multimodal Model Support:** Gemini 2.5 Flash, Gemini 3.1 Flash-Lite, and Gemini 1.5 Flash.

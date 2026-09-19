@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Auto AI Captcha Solver</title>
@@ -25,14 +25,14 @@
         <span id="sub-badge" class="badge-status disconnected" style="font-size: 10px;">Checking...</span>
       </div>
 
-      <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">আপনার ডিভাইস আইডি (Admin-কে পাঠান):</div>
+      <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Your Device ID (Send to Admin):</div>
       <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-        <input type="text" id="input-device-id" readonly style="font-family: monospace; font-size: 11px; padding: 6px 8px; background: #0b0f19; cursor: pointer;" title="কপি করতে ক্লিক করুন">
-        <button id="btn-copy-device-id" class="btn btn-secondary" style="font-size: 11px; padding: 6px 10px; width: auto; cursor: pointer;" title="কপি করুন">📋 Copy</button>
+        <input type="text" id="input-device-id" readonly style="font-family: monospace; font-size: 11px; padding: 6px 8px; background: #0b0f19; cursor: pointer;" title="Click to copy">
+        <button id="btn-copy-device-id" class="btn btn-secondary" style="font-size: 11px; padding: 6px 10px; width: auto; cursor: pointer;" title="Copy to clipboard">📋 Copy</button>
       </div>
 
       <div id="sub-status-info" style="font-size: 12px; font-weight: 600; padding: 8px; border-radius: 6px; text-align: center; margin-top: 8px; background: #0b0f19; border: 1px solid #1e293b;">
-        হিসাব করা হচ্ছে...
+        Calculating status...
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
@@ -40,7 +40,7 @@
       </div>
 
       <details style="margin-top: 6px; font-size: 11px; color: #94a3b8;">
-        <summary style="cursor: pointer; user-select: none;">⚙️ GitHub License URL সেটিংস</summary>
+        <summary style="cursor: pointer; user-select: none;">⚙️ GitHub License URL Settings</summary>
         <div style="margin-top: 6px;">
           <input type="text" id="input-license-url" placeholder="https://raw.githubusercontent.com/.../licenses.json" style="font-size: 11px; padding: 6px 8px;">
           <button id="btn-save-license-url" class="btn btn-secondary" style="margin-top: 4px; font-size: 10px; padding: 4px; width: 100%;">Save URL</button>
@@ -52,8 +52,8 @@
     <div class="card highlight-card">
       <div class="setting-item">
         <div>
-          <div class="setting-name" style="font-size: 13px; font-weight: 700;">Extension Status (এক্সটেনশন চালু/বন্ধ)</div>
-          <div class="setting-desc">বন্ধ রাখলে কোনো সাইটেই এক্সটেনশন কাজ করবে না</div>
+          <div class="setting-name" style="font-size: 13px; font-weight: 700;">Extension Status</div>
+          <div class="setting-desc">When disabled, the extension will not run on any page</div>
         </div>
         <label class="switch">
           <input type="checkbox" id="toggle-master-switch" checked>
@@ -66,7 +66,7 @@
     <div class="card">
       <label for="api-key" class="label-title">
         <span>Google Gemini API Key</span>
-        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="free-link">ফ্রি কী নিন (Get Free) ↗</a>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="free-link">Get Free API Key ↗</a>
       </label>
       <div class="input-group">
         <input type="password" id="api-key" placeholder="AIzaSy..." autocomplete="off">
@@ -80,34 +80,34 @@
 
     <!-- Site Target Mode Section -->
     <div class="card">
-      <div class="section-title">Site Settings (কোথায় কাজ করবে)</div>
+      <div class="section-title">Site Settings</div>
 
       <div class="setting-item">
         <div>
-          <div class="setting-name">Working Mode (মোড নির্বাচন)</div>
-          <div class="setting-desc">শুধু নির্দিষ্ট সাইটে নাকি সব ওয়েবসাইটে</div>
+          <div class="setting-name">Working Mode</div>
+          <div class="setting-desc">Run on specific domains or all websites</div>
         </div>
         <select id="select-site-mode" class="select-dropdown">
-          <option value="specific" selected>Specific Sites Only (শুধু নির্দিষ্ট সাইটে)</option>
-          <option value="all">All Websites (সব ওয়েবসাইটে)</option>
+          <option value="specific" selected>Specific Sites Only</option>
+          <option value="all">All Websites</option>
         </select>
       </div>
 
       <div id="specific-sites-container" style="margin-top: 6px;">
-        <label class="setting-desc" style="display: block; margin-bottom: 4px;">অনুমোদিত ওয়েবসাইট তালিকা (কমা দিয়ে আলাদা করুন):</label>
+        <label class="setting-desc" style="display: block; margin-bottom: 4px;">Allowed Domains (comma-separated):</label>
         <input type="text" id="input-allowed-sites" value="kolotibablo.com, localhost" placeholder="kolotibablo.com, localhost">
-        <button id="btn-add-current-tab" class="btn btn-secondary" style="margin-top: 6px; font-size: 11px; padding: 5px;">+ বর্তমান ওয়েবসাইট যোগ করুন</button>
+        <button id="btn-add-current-tab" class="btn btn-secondary" style="margin-top: 6px; font-size: 11px; padding: 5px;">+ Add Current Domain</button>
       </div>
     </div>
 
     <!-- UI & Speed Settings Section -->
     <div class="card">
-      <div class="section-title">Appearance & Speed (বাটন ও স্পিড)</div>
+      <div class="section-title">Appearance & Speed</div>
 
       <div class="setting-item">
         <div>
-          <div class="setting-name">Floating Screen Button (স্ক্রিনের বাটন)</div>
-          <div class="setting-desc">বন্ধ রাখলে স্ক্রিনের কোণায় কোনো বাটন আসবে না</div>
+          <div class="setting-name">Floating Badge</div>
+          <div class="setting-desc">Show on-screen action badge when challenge appears</div>
         </div>
         <label class="switch">
           <input type="checkbox" id="toggle-floating-badge" checked>
@@ -117,8 +117,8 @@
 
       <div class="setting-item">
         <div>
-          <div class="setting-name">Auto Solve (স্বয়ংক্রিয় সমাধান)</div>
-          <div class="setting-desc">ক্যাপচা পাওয়া মাত্র নিজে থেকে সলভ করবে</div>
+          <div class="setting-name">Auto Solve</div>
+          <div class="setting-desc">Automatically solve challenge when detected</div>
         </div>
         <label class="switch">
           <input type="checkbox" id="toggle-auto-solve" checked>
@@ -129,7 +129,7 @@
       <div class="setting-item">
         <div>
           <div class="setting-name">Vision Model</div>
-          <div class="setting-desc">মডেল নির্বাচন</div>
+          <div class="setting-desc">Select Gemini multimodal model</div>
         </div>
         <select id="select-model" class="select-dropdown">
           <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash (Accurate)</option>

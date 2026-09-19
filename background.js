@@ -49,7 +49,7 @@ async function handleSolveCaptcha(payload) {
     chrome.storage.local.get(["isLicensed", "licenseExpiry"], resolve);
   });
   if (licenseCheck.isLicensed === false || (licenseCheck.licenseExpiry && Date.now() > licenseCheck.licenseExpiry)) {
-    throw new Error("সাবস্ক্রিপশন মেয়াদ শেষ বা লাইসেন্স নিষ্ক্রিয়! এক্সটেনশন পপআপে গিয়ে লাইসেন্স রিনিউ করুন।");
+    throw new Error("Subscription expired or license inactive! Please check or renew license in the extension popup.");
   }
 
   if (!apiKey) {
