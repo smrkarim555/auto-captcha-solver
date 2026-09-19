@@ -1,10 +1,10 @@
 {
   "updatedAt": "2026-09-20T00:00:00.000Z",
   "devices": {
-    "SAMPLE-DEVICE-ID": {
-      "name": "Demo Admin Test",
+    "DEV-3DE30AFEFF80": {
+      "name": "admin",
       "createdAt": "2026-09-20T00:00:00.000Z",
-      "expiryDate": "2026-10-20T00:00:00.000Z",
+      "expiryDate": "2026-10-20T23:59:59.000Z",
       "status": "active",
       "planDays": 30
     }
