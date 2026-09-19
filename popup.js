@@ -179,18 +179,19 @@ document.addEventListener("DOMContentLoaded", () => {
         chrome.storage.local.set({ deviceId: currentDeviceId });
       }
 
+      const defaultLicenseUrl = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
+      const activeUrl = data.githubLicenseUrl || defaultLicenseUrl;
+
       if (inputDeviceId) inputDeviceId.value = currentDeviceId;
-      if (inputLicenseUrl && data.githubLicenseUrl) {
-        inputLicenseUrl.value = data.githubLicenseUrl;
+      if (inputLicenseUrl) {
+        inputLicenseUrl.value = activeUrl;
       }
 
       // Display cached license status first
       updateLicenseUI(data.isLicensed, data.licenseExpiry, data.licenseUser);
 
-      // If license URL is configured, auto-sync in background
-      if (data.githubLicenseUrl) {
-        verifyLicenseFromRemote(data.githubLicenseUrl, currentDeviceId, false);
-      }
+      // Auto-sync from GitHub
+      verifyLicenseFromRemote(activeUrl, currentDeviceId, false);
     });
   }
 
