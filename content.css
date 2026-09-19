@@ -1,0 +1,101 @@
+/* Styling for injected AI Captcha Solver UI overlay */
+
+#ai-captcha-solver-badge {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 2147483647 !important;
+  background: rgba(15, 23, 42, 0.96) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(59, 130, 246, 0.6) !important;
+  border-radius: 12px !important;
+  padding: 10px 14px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 13px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(59, 130, 246, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  backdrop-filter: blur(10px) !important;
+  user-select: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  line-height: normal !important;
+}
+
+#ai-captcha-solver-badge:hover {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.9), 0 0 20px rgba(56, 189, 248, 0.5) !important;
+}
+
+#ai-captcha-solver-badge .status-dot {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background-color: #10b981 !important;
+  display: inline-block !important;
+  box-shadow: 0 0 8px #10b981 !important;
+  animation: pulse-dot 2s infinite !important;
+}
+
+#ai-captcha-solver-badge .status-dot.solving {
+  background-color: #f59e0b !important;
+  box-shadow: 0 0 8px #f59e0b !important;
+}
+
+#ai-captcha-solver-badge .status-dot.error {
+  background-color: #ef4444 !important;
+  box-shadow: 0 0 8px #ef4444 !important;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+#ai-captcha-solver-badge .badge-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+#ai-captcha-solver-badge .badge-btn:hover {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+}
+
+/* Highlight style for tiles chosen by AI */
+.ai-solver-selected-tile {
+  outline: 4px solid #10b981 !important;
+  outline-offset: -3px !important;
+  box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.4), 0 0 15px rgba(16, 185, 129, 0.6) !important;
+  position: relative !important;
+}
+
+.ai-solver-selected-tile::after {
+  content: "✓" !important;
+  position: absolute !important;
+  top: 6px !important;
+  right: 6px !important;
+  background: #10b981 !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5) !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+}
