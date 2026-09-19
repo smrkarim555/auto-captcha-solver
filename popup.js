@@ -157,7 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Device ID & License Management ---
-  const DEFAULT_LICENSE_URL = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
+  const GH_API_URL = "https://api.github.com/repos/smrkarim555/auto-captcha-solver/contents/licenses.json";
+  const RAW_URL = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
 
   const inputDeviceId = document.getElementById("input-device-id");
   const btnCopyDeviceId = document.getElementById("btn-copy-device-id");
@@ -187,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Display cached license status first
       updateLicenseUI(data.isLicensed, data.licenseExpiry, data.licenseUser);
 
-      // Auto-sync from GitHub
-      verifyLicenseFromRemote(DEFAULT_LICENSE_URL, currentDeviceId, false);
+      // Auto-sync instantly from GitHub
+      verifyLicenseFromRemote(currentDeviceId, false);
     });
   }
 
@@ -229,28 +230,45 @@ document.addEventListener("DOMContentLoaded", () => {
   // Refresh / Sync License
   if (btnCheckLicense) {
     btnCheckLicense.addEventListener("click", () => {
-      verifyLicenseFromRemote(DEFAULT_LICENSE_URL, currentDeviceId, true);
+      verifyLicenseFromRemote(currentDeviceId, true);
     });
   }
 
-  async function verifyLicenseFromRemote(url, deviceId, isManualClick = false) {
+  async function verifyLicenseFromRemote(deviceId, isManualClick = false) {
     if (subStatusInfo) {
       subStatusInfo.textContent = "Checking server license...";
       subStatusInfo.style.color = "#38bdf8";
     }
 
     try {
-      // Instant fetch with no-store cache to avoid any ISP or browser delay
-      const response = await fetch(`${DEFAULT_LICENSE_URL}?t=${Date.now()}&_=${Math.random()}`, {
-        cache: "no-store"
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`);
+      let devices = {};
+
+      // 1. Instant fetch via GitHub Contents API (0 seconds cache delay)
+      try {
+        const apiRes = await fetch(`${GH_API_URL}?t=${Date.now()}`, {
+          headers: { "Accept": "application/vnd.github.v3+json" }
+        });
+        if (apiRes.ok) {
+          const data = await apiRes.json();
+          const decoded = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ""))));
+          const parsed = JSON.parse(decoded);
+          devices = parsed.devices || {};
+        }
+      } catch (apiErr) {
+        console.warn("API fetch error, falling back to raw:", apiErr);
       }
 
-      const json = await response.json();
-      const devices = json.devices || {};
-      
+      // 2. Fallback to Raw URL if needed
+      if (Object.keys(devices).length === 0) {
+        const rawRes = await fetch(`${RAW_URL}?t=${Date.now()}&_=${Math.random()}`, {
+          cache: "no-store"
+        });
+        if (rawRes.ok) {
+          const parsed = await rawRes.json();
+          devices = parsed.devices || {};
+        }
+      }
+
       const cleanDevId = (deviceId || currentDeviceId || "").replace(/[\s-_]/g, "").toUpperCase();
       let userRecord = null;
 
