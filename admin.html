@@ -702,7 +702,8 @@
         </td>
         <td>${statusBadgeHtml}</td>
         <td>
-          <div style="display: flex; gap: 6px; align-items: center;">
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <button class="btn btn-sm" style="background: #3b82f6; color: #fff; padding: 4px 8px; font-size: 11px; width: auto;" onclick="editUserDays('${devId}')" title="Set validity days">📅 Edit Days</button>
             ${blockBtnHtml}
             <button class="btn-danger" onclick="deleteUser('${devId}')">Delete</button>
           </div>
@@ -782,6 +783,38 @@
     const pushed = await pushToGitHub(licensesDb);
     if (pushed) {
       alert(`✓ Device ${devId} is now ${newStatus.toUpperCase()} on GitHub!`);
+    }
+  };
+
+  window.editUserDays = async function(devId) {
+    const user = licensesDb[devId];
+    if (!user) return;
+
+    const currentDiff = Math.max(0, Math.ceil((new Date(user.expiryDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
+    const input = prompt(`Enter new number of validity days from today for "${user.name || devId}":\n(Currently: ${currentDiff} days remaining)`, currentDiff || "7");
+
+    if (input === null) return; // Cancelled
+    const days = parseInt(input.trim());
+    if (isNaN(days) || days < 0) {
+      alert("Please enter a valid positive number of days (e.g. 7, 15, 30)!");
+      return;
+    }
+
+    const now = Date.now();
+    const expiryTimestamp = now + (days * 24 * 60 * 60 * 1000);
+    licensesDb[devId].expiryDate = new Date(expiryTimestamp).toISOString();
+    licensesDb[devId].planDays = days;
+    if (licensesDb[devId].status === "blocked") {
+      const unblock = confirm("This device is currently blocked. Would you like to unblock it now?");
+      if (unblock) licensesDb[devId].status = "active";
+    } else {
+      licensesDb[devId].status = "active";
+    }
+
+    renderTable();
+    const pushed = await pushToGitHub(licensesDb);
+    if (pushed) {
+      alert(`✅ Updated! ${user.name || devId} now has ${days} days validity on GitHub.`);
     }
   };
 
