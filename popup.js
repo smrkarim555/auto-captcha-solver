@@ -244,15 +244,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const DEFAULT_LICENSE_URL = "https://raw.githubusercontent.com/smrkarim555/auto-captcha-solver/main/licenses.json";
+
   // Refresh / Sync License
   if (btnCheckLicense) {
     btnCheckLicense.addEventListener("click", () => {
       chrome.storage.local.get(["githubLicenseUrl"], (data) => {
-        const url = (inputLicenseUrl && inputLicenseUrl.value.trim()) || data.githubLicenseUrl;
-        if (!url) {
-          alert("GitHub License URL is not set! Expand '⚙️ GitHub License URL Settings' below and paste your repository's raw URL.");
-          return;
-        }
+        const url = (inputLicenseUrl && inputLicenseUrl.value.trim()) || data.githubLicenseUrl || DEFAULT_LICENSE_URL;
         verifyLicenseFromRemote(url, currentDeviceId, true);
       });
     });
@@ -264,22 +262,33 @@ document.addEventListener("DOMContentLoaded", () => {
       subStatusInfo.style.color = "#38bdf8";
     }
 
+    const activeUrl = (url && url.trim()) || DEFAULT_LICENSE_URL;
+
     try {
       // Fetch with cache busting to get real-time status from GitHub
-      const response = await fetch(`${url}?t=${Date.now()}`);
+      const response = await fetch(`${activeUrl}?t=${Date.now()}`);
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
       }
 
       const json = await response.json();
       const devices = json.devices || {};
-      const userRecord = devices[deviceId];
+      
+      const cleanDevId = (deviceId || "").trim().toUpperCase();
+      let userRecord = devices[cleanDevId];
+      if (!userRecord) {
+        const matchedKey = Object.keys(devices).find(k => 
+          k.trim().toUpperCase() === cleanDevId || 
+          k.replace(/[\s-_]/g, "").toUpperCase() === cleanDevId.replace(/[\s-_]/g, "").toUpperCase()
+        );
+        if (matchedKey) userRecord = devices[matchedKey];
+      }
 
       if (!userRecord) {
         // Device not registered in licenses.json
         chrome.storage.local.set({ isLicensed: false, licenseExpiry: null });
         updateLicenseUI(false, null, null, "Device not registered in database! Send your Device ID to Admin.");
-        if (isManualClick) alert(`❌ License inactive! Your Device ID (${deviceId}) is not registered in licenses.json.`);
+        if (isManualClick) alert(`❌ License inactive! Your Device ID (${cleanDevId}) was not found in licenses.json.`);
         return;
       }
 
