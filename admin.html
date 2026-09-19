@@ -92,10 +92,10 @@
 
     /* Main Container */
     .container {
-      max-width: 1260px;
+      max-width: 1400px;
       margin: 0 auto;
-      width: 100%;
-      padding: 0 16px;
+      width: 96%;
+      padding: 0 12px;
       flex: 1;
     }
 
@@ -132,26 +132,55 @@
       flex-wrap: wrap;
     }
 
-    /* Sync Indicator Banner */
-    .sync-banner {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    /* Cloud Target Banner - Ultra Modern */
+    .cloud-target-bar {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 12px 18px;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      font-size: 13px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
-    .sync-banner code {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 3px 8px;
+    .cloud-target-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+    .cloud-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cloud-meta {
+      color: #cbd5e1;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .cloud-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2px 8px;
       border-radius: 6px;
       color: #38bdf8;
       font-family: monospace;
@@ -337,74 +366,256 @@
       transform: translateY(-1px);
     }
 
-    /* Glass Table */
+    /* Modern SaaS Data Table */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(11, 15, 25, 0.4);
+    }
     table {
       width: 100%;
-      min-width: 680px;
+      min-width: 760px;
       border-collapse: collapse;
-      font-size: 12px;
-    }
-    th, td {
-      padding: 12px 14px;
-      text-align: left;
-      vertical-align: middle;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      white-space: nowrap;
+      font-size: 13px;
     }
     th {
-      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      color: #94a3b8;
       font-weight: 700;
       text-transform: uppercase;
       font-size: 11px;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap !important;
+    }
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      white-space: nowrap !important;
+      color: #e2e8f0;
+    }
+    tbody tr {
+      transition: background 0.15s ease;
     }
     tbody tr:hover {
-      background: rgba(255, 255, 255, 0.025);
+      background: rgba(255, 255, 255, 0.035);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
-    /* Pill Badges */
-    .badge {
+    /* User cell with icon */
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      padding: 4px 10px;
+      font-size: 13px;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Device ID Chip */
+    .dev-chip {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      cursor: pointer;
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      user-select: none;
+      white-space: nowrap !important;
+    }
+    .dev-chip:hover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.18);
+      color: #93c5fd;
+      transform: translateY(-1px);
+    }
+    .dev-chip .copy-hint {
+      font-size: 11px;
+      opacity: 0.6;
+    }
+    .dev-chip:hover .copy-hint {
+      opacity: 1;
+    }
+
+    /* Modern Status Pills */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.3px;
-      white-space: nowrap;
+      white-space: nowrap !important;
       line-height: 1.2;
     }
-    .badge-active {
+    .status-pill.active {
       background: rgba(16, 185, 129, 0.15);
       color: #34d399;
       border: 1px solid rgba(52, 211, 153, 0.3);
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
     }
-    .badge-expired {
+    .status-pill.blocked {
       background: rgba(239, 68, 68, 0.15);
       color: #f87171;
       border: 1px solid rgba(248, 113, 113, 0.3);
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+    }
+    .status-pill.expired {
+      background: rgba(148, 163, 184, 0.15);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .status-pill.active .pill-dot { background: #34d399; box-shadow: 0 0 6px #34d399; }
+    .status-pill.blocked .pill-dot { background: #f87171; box-shadow: 0 0 6px #f87171; }
+    .status-pill.expired .pill-dot { background: #94a3b8; }
+
+    /* Days Left Badge */
+    .days-badge {
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap !important;
+    }
+    .days-badge.active { color: #34d399; }
+    .days-badge.danger { color: #f87171; }
+
+    /* Action Button Group */
+    .action-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap !important;
+      justify-content: flex-end;
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      white-space: nowrap !important;
+      user-select: none;
+    }
+    .action-btn:hover {
+      transform: translateY(-1px);
+    }
+    .action-btn:active {
+      transform: translateY(0);
+    }
+    .action-btn-edit {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .action-btn-edit:hover {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #93c5fd;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25);
+    }
+    .action-btn-block {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .action-btn-block:hover {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: rgba(245, 158, 11, 0.5);
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+    }
+    .action-btn-unblock {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    .action-btn-unblock:hover {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: rgba(52, 211, 153, 0.6);
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    }
+    .action-btn-delete {
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .action-btn-delete:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.25);
     }
 
-    .copy-chip {
-      background: rgba(11, 15, 25, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-family: monospace;
+    /* Header Count & Search */
+    .table-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .count-chip {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
       font-size: 11px;
-      cursor: pointer;
-      color: #e2e8f0;
-      white-space: nowrap;
-      display: inline-block;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .table-search-input {
+      background: rgba(11, 15, 25, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #fff;
+      outline: none;
+      width: 210px;
       transition: all 0.2s;
     }
-    .copy-chip:hover {
-      border-color: #3b82f6;
-      background: rgba(59, 130, 246, 0.15);
+    .table-search-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+      width: 250px;
     }
 
     .status-indicator {
@@ -469,12 +680,21 @@
     </div>
   </header>
 
-  <!-- Sync Banner -->
-  <div class="sync-banner">
-    <div>
-      <span>Repository: <b>smrkarim555/auto-captcha-solver</b> &bull; File: <code>licenses.json</code></span>
+  <!-- Cloud Target Banner - Ultra Modern -->
+  <div class="cloud-target-bar">
+    <div class="cloud-target-left">
+      <span class="cloud-tag">⚡ Cloud Sync</span>
+      <div class="cloud-meta">
+        <span>Repository: <b style="color: #f8fafc;">smrkarim555/auto-captcha-solver</b></span>
+        <span style="color: #64748b;">•</span>
+        <span>Branch: <code class="cloud-chip">main</code></span>
+        <span style="color: #64748b;">•</span>
+        <span>Target: <code class="cloud-chip">licenses.json</code></span>
+      </div>
     </div>
-    <button id="btn-refresh-remote" class="btn btn-secondary btn-sm">🔄 Fetch Live From GitHub</button>
+    <button id="btn-refresh-remote" class="btn btn-secondary btn-sm" title="Reload live data from GitHub API">
+      <span>🔄</span> <span>Fetch Live Data</span>
+    </button>
   </div>
 
   <!-- Stats Row -->
@@ -571,24 +791,30 @@
     <!-- Right Column: User Management Table -->
     <div>
       <div class="card">
-        <div class="card-title">
-          <span>👥 Registered Users & Devices</span>
+        <div class="table-header-flex">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 15px; font-weight: 700; color: #f1f5f9;">👥 Registered Devices & Licenses</span>
+            <span id="stat-count-chip" class="count-chip">0 Devices</span>
+          </div>
+          <div>
+            <input type="text" id="table-search" class="table-search-input" placeholder="🔍 Filter devices or users...">
+          </div>
         </div>
-        <div style="overflow-x: auto;">
+        <div class="table-wrapper">
           <table>
             <thead>
               <tr>
-                <th>User</th>
-                <th>Device ID</th>
-                <th>Expires On</th>
-                <th>Remaining</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th style="width: 14%;">USER</th>
+                <th style="width: 25%;">DEVICE ID</th>
+                <th style="width: 15%;">EXPIRES ON</th>
+                <th style="width: 12%;">TIME LEFT</th>
+                <th style="width: 14%;">STATUS</th>
+                <th style="width: 20%; text-align: right;">ACTIONS</th>
               </tr>
             </thead>
             <tbody id="user-table-body">
               <tr>
-                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 20px;">
+                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">
                   Loading live data from GitHub...
                 </td>
               </tr>
@@ -812,52 +1038,89 @@
     const deviceKeys = Object.keys(licensesDb);
     total = deviceKeys.length;
 
-    if (total === 0) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">No registered devices found. Add one from the form.</td></tr>`;
+    const searchQuery = (document.getElementById("table-search")?.value || "").trim().toLowerCase();
+
+    const filteredKeys = deviceKeys.filter((devId) => {
+      if (!searchQuery) return true;
+      const u = licensesDb[devId] || {};
+      const name = (u.name || "").toLowerCase();
+      const id = devId.toLowerCase();
+      return name.includes(searchQuery) || id.includes(searchQuery);
+    });
+
+    if (deviceKeys.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">No registered devices found. Add one from the form.</td></tr>`;
+    } else if (filteredKeys.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">No devices matching "${escapeHtml(searchQuery)}".</td></tr>`;
     }
 
+    // Update global stat counts
     deviceKeys.forEach((devId) => {
       const u = licensesDb[devId];
       const expiry = new Date(u.expiryDate).getTime();
       const diffDays = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
       const isBlocked = u.status === "blocked";
       const isActive = !isBlocked && diffDays > 0;
-
-      if (isBlocked) {
+      if (isBlocked || !isActive) {
         expiredCount++;
-      } else if (isActive) {
-        activeCount++;
       } else {
-        expiredCount++;
+        activeCount++;
       }
+    });
+
+    // Render filtered rows
+    filteredKeys.forEach((devId) => {
+      const u = licensesDb[devId];
+      const expiry = new Date(u.expiryDate).getTime();
+      const diffDays = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+      const isBlocked = u.status === "blocked";
+      const isActive = !isBlocked && diffDays > 0;
 
       let statusBadgeHtml = "";
       if (isBlocked) {
-        statusBadgeHtml = `<span class="badge badge-expired">🚫 Blocked</span>`;
+        statusBadgeHtml = `<span class="status-pill blocked"><span class="pill-dot"></span><span>Blocked</span></span>`;
       } else if (isActive) {
-        statusBadgeHtml = `<span class="badge badge-active">Active</span>`;
+        statusBadgeHtml = `<span class="status-pill active"><span class="pill-dot"></span><span>Active</span></span>`;
       } else {
-        statusBadgeHtml = `<span class="badge badge-expired">Expired</span>`;
+        statusBadgeHtml = `<span class="status-pill expired"><span class="pill-dot"></span><span>Expired</span></span>`;
       }
 
       const blockBtnHtml = isBlocked
-        ? `<button class="btn btn-sm btn-success" onclick="toggleBlockUser('${devId}')" title="Unblock user">Unblock</button>`
-        : `<button class="btn btn-sm" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);" onclick="toggleBlockUser('${devId}')" title="Block user access">Block</button>`;
+        ? `<button class="action-btn action-btn-unblock" onclick="toggleBlockUser('${devId}')" title="Unblock user access"><span>✅</span> <span>Unblock</span></button>`
+        : `<button class="action-btn action-btn-block" onclick="toggleBlockUser('${devId}')" title="Block user access"><span>🚫</span> <span>Block</span></button>`;
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td style="font-weight: 700; color: #f1f5f9;">${escapeHtml(u.name || "Unknown")}</td>
-        <td><span class="copy-chip" title="Click to copy" onclick="navigator.clipboard.writeText('${devId}'); alert('Copied: ${devId}')">${devId}</span></td>
-        <td>${new Date(u.expiryDate).toLocaleDateString()}</td>
-        <td style="font-weight: 700; color: ${isBlocked ? 'var(--danger)' : (isActive ? 'var(--success)' : 'var(--danger)')};">
-          ${isBlocked ? 'Blocked' : (diffDays > 0 ? diffDays + ' days' : '0 days')}
+        <td>
+          <div class="user-cell">
+            <div class="user-avatar">${escapeHtml((u.name || "U").charAt(0).toUpperCase())}</div>
+            <span style="font-weight: 700; color: #f8fafc;">${escapeHtml(u.name || "Unknown")}</span>
+          </div>
+        </td>
+        <td>
+          <div class="dev-chip" title="Click to copy Device ID" onclick="navigator.clipboard.writeText('${devId}'); alert('Copied: ${devId}')">
+            <span>${devId}</span>
+            <span class="copy-hint">📋</span>
+          </div>
+        </td>
+        <td style="color: #cbd5e1; font-weight: 500;">
+          ${new Date(u.expiryDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+        </td>
+        <td>
+          <span class="days-badge ${isBlocked ? 'danger' : (isActive ? 'active' : 'danger')}">
+            ${isBlocked ? 'Blocked' : (diffDays > 0 ? diffDays + ' Days' : '0 Days')}
+          </span>
         </td>
         <td>${statusBadgeHtml}</td>
         <td>
-          <div style="display: flex; gap: 6px; align-items: center; white-space: nowrap;">
-            <button class="btn btn-sm btn-secondary" style="border-color: rgba(59, 130, 246, 0.4);" onclick="editUserDays('${devId}')" title="Set validity days">📅 Edit Days</button>
+          <div class="action-group">
+            <button class="action-btn action-btn-edit" onclick="editUserDays('${devId}')" title="Adjust subscription days">
+              <span>📅</span> <span>Edit Days</span>
+            </button>
             ${blockBtnHtml}
-            <button class="btn-danger" onclick="deleteUser('${devId}')">Delete</button>
+            <button class="action-btn action-btn-delete" onclick="deleteUser('${devId}')" title="Delete device permanently">
+              <span>🗑️</span> <span>Delete</span>
+            </button>
           </div>
         </td>
       `;
@@ -867,6 +1130,16 @@
     document.getElementById("stat-total").textContent = total;
     document.getElementById("stat-active").textContent = activeCount;
     document.getElementById("stat-expired").textContent = expiredCount;
+    const countChip = document.getElementById("stat-count-chip");
+    if (countChip) {
+      countChip.textContent = `${total} ${total === 1 ? 'Device' : 'Devices'}`;
+    }
+  }
+
+  // Live search listener
+  const searchInput = document.getElementById("table-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", renderTable);
   }
 
   // Duration select custom toggle
