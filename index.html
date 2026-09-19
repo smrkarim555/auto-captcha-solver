@@ -361,13 +361,20 @@
           <div class="form-group">
             <label>Subscription Duration</label>
             <select id="duration-select">
-              <option value="30" selected>1 Month (30 Days)</option>
               <option value="7">7 Days (Trial)</option>
+              <option value="15">15 Days</option>
+              <option value="30" selected>1 Month (30 Days)</option>
               <option value="90">3 Months (90 Days)</option>
               <option value="180">6 Months (180 Days)</option>
               <option value="365">1 Year (365 Days)</option>
               <option value="3650">Lifetime (10 Years)</option>
+              <option value="custom">⚙️ Custom Days (Enter number)...</option>
             </select>
+          </div>
+
+          <div class="form-group" id="custom-days-container" style="display: none;">
+            <label>Enter Custom Days</label>
+            <input type="number" id="custom-days-input" min="1" max="3650" placeholder="e.g. 5 or 12">
           </div>
 
           <button type="submit" id="btn-submit-save" class="btn btn-success">
@@ -661,26 +668,44 @@
       const u = licensesDb[devId];
       const expiry = new Date(u.expiryDate).getTime();
       const diffDays = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
-      const isActive = diffDays > 0 && u.status !== "blocked";
+      const isBlocked = u.status === "blocked";
+      const isActive = !isBlocked && diffDays > 0;
 
-      if (isActive) activeCount++;
-      else expiredCount++;
+      if (isBlocked) {
+        expiredCount++;
+      } else if (isActive) {
+        activeCount++;
+      } else {
+        expiredCount++;
+      }
+
+      let statusBadgeHtml = "";
+      if (isBlocked) {
+        statusBadgeHtml = `<span class="badge" style="background: rgba(239, 68, 68, 0.25); color: #f87171;">🚫 Blocked</span>`;
+      } else if (isActive) {
+        statusBadgeHtml = `<span class="badge badge-active">Active</span>`;
+      } else {
+        statusBadgeHtml = `<span class="badge badge-expired">Expired</span>`;
+      }
+
+      const blockBtnHtml = isBlocked
+        ? `<button class="btn btn-sm btn-success" style="padding: 4px 8px; font-size: 11px; width: auto;" onclick="toggleBlockUser('${devId}')" title="Unblock user">Unblock</button>`
+        : `<button class="btn btn-sm" style="background: #eab308; color: #000; font-weight: 600; padding: 4px 8px; font-size: 11px; width: auto;" onclick="toggleBlockUser('${devId}')" title="Block user access">Block</button>`;
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td style="font-weight: 600;">${escapeHtml(u.name || "Unknown")}</td>
         <td><span class="copy-chip" title="Click to copy" onclick="navigator.clipboard.writeText('${devId}'); alert('Copied: ${devId}')">${devId}</span></td>
         <td>${new Date(u.expiryDate).toLocaleDateString()}</td>
-        <td style="font-weight: bold; color: ${isActive ? 'var(--success)' : 'var(--danger)'};">
-          ${diffDays > 0 ? diffDays + ' days' : '0 days'}
+        <td style="font-weight: bold; color: ${isBlocked ? 'var(--danger)' : (isActive ? 'var(--success)' : 'var(--danger)')};">
+          ${isBlocked ? 'Blocked' : (diffDays > 0 ? diffDays + ' days' : '0 days')}
         </td>
+        <td>${statusBadgeHtml}</td>
         <td>
-          <span class="badge ${isActive ? 'badge-active' : 'badge-expired'}">
-            ${isActive ? 'Active' : 'Expired'}
-          </span>
-        </td>
-        <td>
-          <button class="btn-danger" onclick="deleteUser('${devId}')">Delete</button>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            ${blockBtnHtml}
+            <button class="btn-danger" onclick="deleteUser('${devId}')">Delete</button>
+          </div>
         </td>
       `;
       tbody.appendChild(tr);
@@ -691,12 +716,37 @@
     document.getElementById("stat-expired").textContent = expiredCount;
   }
 
+  // Duration select custom toggle
+  const durationSelect = document.getElementById("duration-select");
+  const customDaysContainer = document.getElementById("custom-days-container");
+  if (durationSelect && customDaysContainer) {
+    durationSelect.addEventListener("change", () => {
+      if (durationSelect.value === "custom") {
+        customDaysContainer.style.display = "block";
+        document.getElementById("custom-days-input").focus();
+      } else {
+        customDaysContainer.style.display = "none";
+      }
+    });
+  }
+
   // Form Submit: Save User
   document.getElementById("license-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("user-name").value.trim();
     const deviceId = document.getElementById("device-id").value.trim();
-    const durationDays = parseInt(document.getElementById("duration-select").value);
+
+    let durationDays = 30;
+    if (durationSelect.value === "custom") {
+      const customVal = parseInt(document.getElementById("custom-days-input").value);
+      if (!customVal || customVal < 1) {
+        alert("Please enter a valid number of days (at least 1)!");
+        return;
+      }
+      durationDays = customVal;
+    } else {
+      durationDays = parseInt(durationSelect.value);
+    }
 
     if (!deviceId) return;
 
@@ -718,8 +768,22 @@
       alert(`✅ Subscription saved and published directly to GitHub for ${name} (${durationDays} days)!`);
       document.getElementById("user-name").value = "";
       document.getElementById("device-id").value = "";
+      if (customDaysContainer) customDaysContainer.style.display = "none";
+      durationSelect.value = "30";
     }
   });
+
+  window.toggleBlockUser = async function(devId) {
+    if (!licensesDb[devId]) return;
+    const isCurrentlyBlocked = licensesDb[devId].status === "blocked";
+    const newStatus = isCurrentlyBlocked ? "active" : "blocked";
+    licensesDb[devId].status = newStatus;
+    renderTable();
+    const pushed = await pushToGitHub(licensesDb);
+    if (pushed) {
+      alert(`✓ Device ${devId} is now ${newStatus.toUpperCase()} on GitHub!`);
+    }
+  };
 
   window.deleteUser = async function(devId) {
     if (confirm(`Are you sure you want to delete ${devId}?`)) {

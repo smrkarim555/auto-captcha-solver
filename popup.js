@@ -292,13 +292,21 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      if (userRecord.status === "blocked") {
+        chrome.storage.local.set({ isLicensed: false, isBlocked: true });
+        updateLicenseUI(false, null, userRecord.name, "🚫 ACCESS SUSPENDED: This device has been blocked by Admin!");
+        if (isManualClick) alert("🚫 ACCESS SUSPENDED: This device has been blocked by Admin!");
+        return;
+      }
+
       const now = Date.now();
       const expiry = new Date(userRecord.expiryDate).getTime();
       const diffDays = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
-      const isActive = diffDays > 0 && userRecord.status !== "blocked";
+      const isActive = diffDays > 0;
 
       chrome.storage.local.set({
         isLicensed: isActive,
+        isBlocked: false,
         licenseExpiry: expiry,
         licenseUser: userRecord.name || "User"
       });
