@@ -40,12 +40,11 @@ body {
 }
 
 .logo-icon {
-  font-size: 22px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
-  padding: 8px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px;
+  border-radius: 9px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
