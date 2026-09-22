@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T19:42:31.166Z",
+  "updatedAt": "2026-09-22T19:43:49.902Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
@@ -19,7 +19,7 @@
       "name": "sifat 4",
       "createdAt": "2026-09-22T12:36:03.701Z",
       "expiryDate": "2026-12-21T12:36:03.701Z",
-      "status": "blocked",
+      "status": "active",
       "planDays": 90
     },
     "DEV-D09DCC2CB13B": {
