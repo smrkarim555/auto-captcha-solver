@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T12:36:46.964Z",
+  "updatedAt": "2026-09-22T18:02:52.637Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
@@ -19,7 +19,7 @@
       "name": "shaon",
       "createdAt": "2026-09-21T19:08:48.401Z",
       "expiryDate": "2026-11-10T22:39:56.661Z",
-      "status": "active",
+      "status": "blocked",
       "planDays": 50
     },
     "DEV-715F0A818118": {
