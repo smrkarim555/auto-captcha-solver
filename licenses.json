@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-01T17:37:07.056Z",
+  "updatedAt": "2026-11-01T17:41:31.440Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
@@ -11,7 +11,7 @@
     "DEV-24F7989B668B": {
       "name": "shaon admin",
       "createdAt": "2026-09-21T19:03:12.778Z",
-      "expiryDate": "2026-11-01T17:40:12.741Z",
+      "expiryDate": "2026-11-03T17:41:31.437Z",
       "status": "active",
       "planDays": 2
     },
