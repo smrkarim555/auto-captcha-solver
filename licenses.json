@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-07T17:15:20.776Z",
+  "updatedAt": "2026-11-21T18:37:10.441Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
@@ -42,6 +42,13 @@
       "expiryDate": "2026-12-07T17:15:20.774Z",
       "status": "active",
       "planDays": 30
+    },
+    "DEV-D09DCC2CB13B": {
+      "name": "ADMIN50",
+      "createdAt": "2026-11-21T18:37:10.439Z",
+      "expiryDate": "2026-11-28T18:37:10.439Z",
+      "status": "active",
+      "planDays": 7
     }
   }
 }
