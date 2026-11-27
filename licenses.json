@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T03:10:44.792Z",
+  "updatedAt": "2026-11-27T14:16:29.351Z",
   "devices": {
     "DEV-3DE30AFEFF80": {
       "name": "user",
@@ -25,7 +25,7 @@
     "DEV-F93C6F5C68C2": {
       "name": "kalam3",
       "createdAt": "2026-11-07T17:15:20.774Z",
-      "expiryDate": "2026-11-23T03:10:35.479Z",
+      "expiryDate": "2026-11-28T14:16:29.341Z",
       "status": "active",
       "planDays": 1
     },
